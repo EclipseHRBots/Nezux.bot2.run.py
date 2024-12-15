@@ -46,4 +46,4 @@ class RunBot():
 if __name__ == "__main__":
   WebServer().keep_alive()
 
-  RunBot().()
+  RunBot().run_loop()
