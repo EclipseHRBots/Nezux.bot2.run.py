@@ -83,10 +83,10 @@ class Bot(BaseBot):
         message = message.lower()
 
         teleport_locations = {
-            "cuarto": Position(12, 11, 28),
-            "piscina": Position(6, 0, 23),
-            "baño": Position(8, 6., 3.),
-            "miauto": Position(4, 1., 14),
+            "!vip": Position(5, 7, 28),
+            "!piscina": Position(6, 0, 23),
+            "!dj": Position(8, 6., 3.),
+            "!coche": Position(4, 1., 14),
             "volar1": Position(random.randint(0, 40), random.randint(0, 40), random.randint(0, 40)),
             "volar2": Position(random.randint(0, 40), random.randint(0, 40), random.randint(0, 40))
         }
