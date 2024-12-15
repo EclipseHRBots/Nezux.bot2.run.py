@@ -6,15 +6,15 @@ FILE_PATH = "./tip-data.json"
 
 class TippingBot(BaseBot):
     def __init__(self):
-        self.bot_id = None
-        self.owner_id = None
+        self.bot_id = 497761234868f1f869f8ae5400f668efaffa3ccbbcf4b5ef16d2f7e7991ab2b7
+        self.owner_id = 
         self.tip_data: Dict[str, Dict[str, Union[str, int]]] = {}
         self.load_tip_data()
 
     async def on_start(self, session_metadata: SessionMetadata) -> None:
         print("Bot Connected")
         self.bot_id = session_metadata.user_id
-        self.owner_id = session_metadata.room_info.owner_id
+        self.owner_id = 675c2b22631d3144b5055bbb
 
     async def on_chat(self, user: User, message: str) -> None:
             await self.process_message(self.highrise.chat, message, user, "Chat Error")
