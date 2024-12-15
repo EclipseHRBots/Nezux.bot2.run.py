@@ -382,8 +382,6 @@ class Bot(BaseBot):
             await self.highrise.send_whisper(user.id, f"Hola necesitas ayuda? 👋😁\n\n")
             await self.highrise.send_whisper(user.id,f"\n\n🕺💃 Utiliza emotes desde el 0 al 96, puedes utilizarlos con loop solo escribir ''loop (numero de emote o el nombre) 🕺💃")
             await self.highrise.send_whisper(user.id, f"\n\n🚫 Para detener el loop solo escribir (Stop) 🚫")
-            await self.highrise.send_whisper(user.id, f"\n\n🔥 Tambien puedes utilizar mi comando (/chamuyo) cuidado con esos chamuyos 😂😈🔥")
-            await self.highrise.send_whisper(user.id, f"\n\n🤪 O utilizar mi comando (/locura) para determinar tu nivel de locura 😂🤪")
             await self.highrise.send_whisper(user.id, f"\n\n📃 Escribe (info @nombre de usuario) para obtener información 📃🧐")
 
         if message == "!fit 1" and user.username == "ElCordobez":
