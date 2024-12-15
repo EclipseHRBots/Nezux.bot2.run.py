@@ -83,7 +83,7 @@ class Bot(BaseBot):
         message = message.lower()
 
         teleport_locations = {
-            "!vip": Position(5, 7, 28),
+            "!vip": Position(5, 30, 5),
             "!piscina": Position(6, 0, 23),
             "!dj": Position(8, 6., 3.),
             "!coche": Position(4, 1., 14),
