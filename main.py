@@ -34,7 +34,7 @@ class Bot(BaseBot):
     async def on_start(self, session_metadata: SessionMetadata) -> None:
         print("hi im alive?")
         await self.highrise.tg.create_task(self.highrise.teleport(
-            session_metadata.user_id, Position(14, 0.5, 17, "FrontLeft")))
+            session_metadata.user_id, Position(16, 0, 26, "FrontLeft")))
              
 
     async def on_user_join(self, user: User, position: Position | AnchorPosition) -> None:
