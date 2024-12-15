@@ -370,14 +370,6 @@ class Bot(BaseBot):
             except:
                 print("Se ha producido un error al enviar este emote.")
 
-        if message.lower() == "/chamuyo":
-           frase = random.choice(chamuyo)
-           await self.highrise.chat(frase)
-
-        if message.lower() == "/locura":
-           frase = random.choice(locura)
-           await self.highrise.chat(frase)
-
         if message.lower().lstrip().startswith(("/ayuda")):
             await self.highrise.send_whisper(user.id, f"Hola necesitas ayuda? 👋😁\n\n")
             await self.highrise.send_whisper(user.id,f"\n\n🕺💃 Utiliza emotes desde el 0 al 96, puedes utilizarlos con loop solo escribir ''loop (numero de emote o el nombre) 🕺💃")
