@@ -26,7 +26,7 @@ class Bot(BaseBot):
         self.content = {}
         self.initial_position = {}
         
-    haricler = ["ElCordobez", ""]
+    haricler = ["ElCordobez", "Nezux"]
 
     async def on_emote(self, user: User, emote_id: str, receiver: User | None) -> None:
       print(f"{user.username} emoted: {emote_id}")
@@ -39,7 +39,7 @@ class Bot(BaseBot):
 
     async def on_user_join(self, user: User, position: Position | AnchorPosition) -> None:
         await self.highrise.chat(f"{user.username} Entro a la sala, bienvenido/a ❤️")
-        await self.highrise.chat(f"Mi casa, mi musica, mis reglas 😂❤️")
+        await self.highrise.chat(f"Bienvenido a Fenix Club, disfruta de una buena musica!")
         await self.highrise.chat(f"🤖 Si necesitas ayuda solo escribe (/ayuda) para obtener una guia! 🤖")
         try:
             emote_name = random.choice(list(secili_emote.keys()))
