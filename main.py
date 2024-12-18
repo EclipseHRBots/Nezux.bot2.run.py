@@ -64,7 +64,7 @@ class Bot(BaseBot):
 
             # Diğer isimler buraya eklenecek
 
-    if message.lower().startswith("!tipall ") and user.username == "ElCordobez":
+    if message.lower().startswith("!tipall ") and user.username == "ElCordobez" "Nezux":
           parts = message.split(" ")
           if len(parts) != 2:
               await self.highrise.send_message(user.id, "💰Comando inválido")
