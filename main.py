@@ -40,14 +40,7 @@ class Bot(BaseBot):
     async def on_user_join(self, user: User, position: Position | AnchorPosition) -> None:
         await self.highrise.chat(f"{user.username} Entro a la sala, bienvenido/a ❤️")
         await self.highrise.chat(f"Bienvenido a Fenix Club, disfruta de una buena musica!")
-        await self.highrise.chat(f"🤖 Si necesitas ayuda solo escribe (/ayuda) para obtener una guia! 🤖")
-        try:
-            emote_name = random.choice(list(secili_emote.keys()))
-            emote_info = secili_emote[emote_name]
-            emote_to_send = emote_info["value"]
-            await self.send_emote(emote_to_send, user.id)
-        except Exception as e:
-            print(f"Error sending emote to user {user.id}: {e}")
+        await self.highrise.chat(f"🤖 Si necesitas ayuda solo escribe (/ayuda) para obtener una guia! 🤖"
   
     async def on_user_leave(self, user: User):
     
@@ -70,8 +63,124 @@ class Bot(BaseBot):
         ]
 
             # Diğer isimler buraya eklenecek
-        
 
+    if message.lower().startswith("!tipall ") and user.username == "ElCordobez":
+          parts = message.split(" ")
+          if len(parts) != 2:
+              await self.highrise.send_message(user.id, "💰Comando inválido")
+              return
+              # Checks if the amount is valid
+            try:
+                amount = int(parts[1])
+            except:
+                await self.highrise.chat("💰Quantidade inválida")
+                return
+              # Checks if the bot has the amount
+              bot_wallet = await self.highrise.get_wallet()
+              bot_amount = bot_wallet.content[0].amount
+              if bot_amount < amount:
+                  await self.highrise.chat("💰Não há fundos suficientes")
+                  return
+              # Get all users in the room
+              room_users = await self.highrise.get_room_users()
+              # Check if the bot has enough funds to tip all users the specified amount
+              total_tip_amount = amount * len(room_users.content)
+              if bot_amount < total_tip_amount:
+                  await self.highrise.chat("💰Não há fundos suficientes para dar gorjeta a todos")
+                  return
+              # Tip each user in the room the specified amount
+              for room_user, pos in room_users.content:
+                  bars_dictionary = {
+                      10000: "gold_bar_10k",
+                      5000: "gold_bar_5000",
+                      1000: "gold_bar_1k",
+                      500: "gold_bar_500",
+                      100: "gold_bar_100",
+                      50: "gold_bar_50",
+                      10: "gold_bar_10",
+                      5: "gold_bar_5",
+                      1: "gold_bar_1"
+                  }
+                  fees_dictionary = {
+                      10000: 1000,
+                      5000: 500,
+                      1000: 100,
+                      500: 50,
+                      100: 10,
+                      50: 5,
+                      10: 1,
+                      5: 1,
+                      1: 1
+                  }
+                  # Convert the amount to a string of bars and calculate the fee
+                  tip = []
+                  remaining_amount = amount
+                  for bar in bars_dictionary:
+                      if remaining_amount >= bar:
+                          bar_amount = remaining_amount // bar
+                          remaining_amount = remaining_amount % bar
+                          for i in range(bar_amount):
+                              tip.append(bars_dictionary[bar])
+                              total = bar + fees_dictionary[bar]
+                  if total > bot_amount:
+                      await self.highrise.chat("💰Não há fundos suficientes")
+                      return
+                  for bar in tip:
+                      await self.highrise.tip_user(room_user.id, bar)                   
+                      await self.highrise.chat(f"💰Deu para {room_user.username} {amount} {bar}!")
+
+        if message.lower().startswith("!tipme ") and user.username== "ElCordobez":
+                try:
+                    amount_str = message.split(" ")[1]
+                    amount = int(amount_str)
+                    bars_dictionary = {
+                        10000: "gold_bar_10k",
+                        5000: "gold_bar_5000",
+                        1000: "gold_bar_1k",
+                        500: "gold_bar_500",
+                        100: "gold_bar_100",
+                        50: "gold_bar_50",
+                        10: "gold_bar_10",
+                        5: "gold_bar_5",
+                        1: "gold_bar_1"
+                    }
+                    fees_dictionary = {
+                        10000: 1000,
+                        5000: 500,
+                        1000: 100,
+                        500: 50,
+                        100: 10,
+                        50: 5,
+                        10: 1,
+                        5: 1,
+                        1: 1
+                    }
+                    # Get bot's wallet balance
+                    bot_wallet = await self.highrise.get_wallet()
+                    bot_amount = bot_wallet.content[0].amount
+                    # Check if bot has enough funds
+                    if bot_amount < amount:
+                        await self.highrise.chat("💰Não há fundos suficientes na carteira do bot. ")
+                        return
+                    # Convert amount to bars and calculate total
+                    tip = []
+                    total = 0
+                    for bar in sorted(bars_dictionary.keys(), reverse=True):
+                        if amount >= bar:
+                            bar_amount = amount // bar
+                            amount %= bar
+                            tip.extend([bars_dictionary[bar]] * bar_amount)
+                            total += bar_amount * bar + fees_dictionary[bar]
+                    if total > bot_amount:
+                       await self.highrise.chat("💰Não há fundos suficientes para dar a gorjeta no valor especificado. ")
+                       return
+                    # Send tip to the user who issued the command
+          for bar in tip:
+            await self.highrise.tip_user(user.id, bar)
+          await self.highrise.chat(f"💰Você foi avisado  {amount_str}.")
+       except (IndexError, ValueError):
+          await self.highrise.chat("💰Valor de gorjeta inválido. Por favor, especifique um número válido. ")   
+          await self.highrise.chat(f"💰Deu para {user.username} {amount} {bar}!")
         
         if message.lower().startswith("banlist"):
           await self.highrise.chat("\n".join(isimler1))
